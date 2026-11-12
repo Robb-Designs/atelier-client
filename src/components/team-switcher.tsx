@@ -1,4 +1,4 @@
-/* WORKSPACE / TEAM SELECTOR */
+/* WORKSPACE / TEAM SELECTOR (chore)
 
 "use client"
 
@@ -98,3 +98,5 @@ export function TeamSwitcher({
     </SidebarMenu>
   )
 }
+
+*/
