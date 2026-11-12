@@ -5,9 +5,22 @@
 import * as React from "react"
 
 import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+/* import { NavProjects } from "@/components/nav-projects" */
+
+import {
+  LayoutDashboardIcon,
+  FolderKanbanIcon,
+  ListTodoIcon,
+  SparklesIcon,
+  PanelsTopLeftIcon,
+  ImagesIcon,
+  Settings2Icon,
+  UserRoundIcon,
+  Flower2Icon,
+} from "lucide-react"
+
+
 import {
   Sidebar,
   SidebarContent,
@@ -15,181 +28,110 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
-import { GalleryVerticalEndIcon, AudioLinesIcon, TerminalIcon, TerminalSquareIcon, BotIcon, BookOpenIcon, Settings2Icon, FrameIcon, PieChartIcon, MapIcon } from "lucide-react"
 
-// This is sample data.
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
+const navigation = {
+  workspace: [
     {
-      name: "Acme Inc",
-      logo: (
-        <GalleryVerticalEndIcon
-        />
-      ),
-      plan: "Enterprise",
+      title: "Dashboard",
+      url: "/app",
+      icon: <LayoutDashboardIcon />,
     },
     {
-      name: "Acme Corp.",
-      logo: (
-        <AudioLinesIcon
-        />
-      ),
-      plan: "Startup",
+      title: "Projects",
+      url: "/app/projects",
+      icon: <FolderKanbanIcon />,
     },
     {
-      name: "Evil Corp.",
-      logo: (
-        <TerminalIcon
-        />
-      ),
-      plan: "Free",
+      title: "My Tasks",
+      url: "/app/tasks",
+      icon: <ListTodoIcon />,
     },
   ],
-  navMain: [
+
+  create: [
     {
-      title: "Playground",
-      url: "#",
-      icon: (
-        <TerminalSquareIcon
-        />
-      ),
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
+      title: "Atelier AI",
+      url: "/app/ai",
+      icon: <SparklesIcon />,
     },
     {
-      title: "Models",
-      url: "#",
-      icon: (
-        <BotIcon
-        />
-      ),
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
+      title: "Portfolio Studio",
+      url: "/app/portfolio",
+      icon: <PanelsTopLeftIcon />,
     },
+  ],
+
+  resources: [
     {
-      title: "Documentation",
-      url: "#",
-      icon: (
-        <BookOpenIcon
-        />
-      ),
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
+      title: "Asset Library",
+      url: "/app/assets",
+      icon: <ImagesIcon />,
     },
+  ],
+
+  personal: [
     {
       title: "Settings",
-      url: "#",
-      icon: (
-        <Settings2Icon
-        />
-      ),
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: (
-        <FrameIcon
-        />
-      ),
+      url: "/app/settings",
+      icon: <Settings2Icon />,
     },
     {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: (
-        <PieChartIcon
-        />
-      ),
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: (
-        <MapIcon
-        />
-      ),
+      title: "Profile",
+      url: "/app/profile",
+      icon: <UserRoundIcon />,
     },
   ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+const user = {
+  name: "Your Name",
+  email: "you@example.com",
+  avatar: "",
+}
+
+export function AppSidebar(
+  props: React.ComponentProps<typeof Sidebar>
+) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <div className="flex items-center gap-3 px-2 py-3 group-data-[collapsible=icon]:justify-center">
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+            <Flower2Icon className="size-5" />
+          </div>
+
+          <span className="font-heading text-xl tracking-tight group-data-[collapsible=icon]:hidden">
+            atelier.
+          </span>
+        </div>
       </SidebarHeader>
+
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavMain
+          label="Workspace"
+          items={navigation.workspace}
+        />
+
+        <NavMain
+          label="Create"
+          items={navigation.create}
+        />
+
+        <NavMain
+          label="Resources"
+          items={navigation.resources}
+        />
+
+        <NavMain
+          label="Personal"
+          items={navigation.personal}
+        />
       </SidebarContent>
+
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
+
       <SidebarRail />
     </Sidebar>
   )
