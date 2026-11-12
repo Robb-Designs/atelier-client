@@ -1,6 +1,5 @@
 /* WORKSPACE / TEAM SELECTOR (chore)
 
-"use client"
 
 import * as React from "react"
 

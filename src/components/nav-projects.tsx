@@ -1,6 +1,5 @@
 /* PROJECT NAV SECTION */
 
-"use client"
 
 import {
   DropdownMenu,
