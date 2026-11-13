@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Search, Bell, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,20 +15,23 @@ const pageTitles: Record<string, string> = {
   "/app/profile": "Profile",
 };
 
-
 export function AppHeader() {
-    const { pathname } = useLocation();
-    const currentPage = pageTitles[pathname] ?? "Workspace";
+  const { pathname } = useLocation();
+  const currentPage = pageTitles[pathname] ?? "Workspace";
 
   return (
     <header className="flex h-16 items-center justify-between border-b border-border px-4 sm:px-6">
       {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-sm">
-        <span className="text-muted-foreground"> Workspace </span>
+      <div className="flex items-center gap-2">
+        <SidebarTrigger />
 
-        <span className="text-muted-foreground">/</span>
+        <div className="flex items-center gap-2 text-sm">
+          <span className="text-muted-foreground"> Workspace </span>
 
-        <span className="font-medium text-foreground">{currentPage}</span>
+          <span className="text-muted-foreground">/</span>
+
+          <span className="font-medium text-foreground">{currentPage}</span>
+        </div>
       </div>
 
       {/* Header actions */}
