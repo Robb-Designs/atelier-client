@@ -1,4 +1,11 @@
-import { FolderOpen, ListChecks, CircleCheck } from "lucide-react"
+import { FolderOpen, ListChecks, CircleCheck } from "lucide-react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 
 const stats = [
   {
@@ -19,11 +26,33 @@ const stats = [
     description: "This month",
     icon: CircleCheck,
   },
-]
+];
 
 export function WorkspaceStats() {
-    return (
-     <>
-     </>
-    )
+  return (
+    <>
+      <div className="grid gap-4 md:grid-cols-3">
+        {stats.map((stat) => {
+          const Icon = stat.icon;
+
+          return (
+            <Card key={stat.title}>
+              <CardHeader>
+                <CardTitle>{stat.title}</CardTitle>
+                <CardDescription>{stat.description}</CardDescription>
+              </CardHeader>
+
+              <CardContent>
+                <div className="flex items-center justify-between">
+                  <span className="text-3xl font-semibold">{stat.value}</span>
+
+                  <Icon className="size-5 text-muted-foreground" />
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+    </>
+  );
 }
