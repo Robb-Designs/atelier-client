@@ -1,5 +1,16 @@
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type ProjectType = "web-design" | "development" | "branding" | "other";
 
@@ -34,9 +45,15 @@ const PROJECT_TYPES: { value: ProjectType; label: string }[] = [
 
 type ProjectCreationFlowProps = {
   onComplete?: (project: NewProject) => void;
+  // The flow says "the user wants out". The parent decides where that goes
+  // (for example, navigating back to the Projects page).
+  onCancel: () => void;
 };
 
-export function ProjectCreationFlow({ onComplete }: ProjectCreationFlowProps) {
+export function ProjectCreationFlow({
+  onComplete,
+  onCancel,
+}: ProjectCreationFlowProps) {
   const [formData, setFormData] = useState<ProjectFormData>({
     name: "",
     problem: "",
@@ -53,6 +70,12 @@ export function ProjectCreationFlow({ onComplete }: ProjectCreationFlowProps) {
 
   const nameInputRef = useRef<HTMLInputElement>(null);
 
+  // Derived, like nameError: is there anything the user would lose by leaving?
+  const hasDraft =
+    formData.name.trim() !== "" ||
+    formData.problem.trim() !== "" ||
+    formData.type !== "";
+
   // Type options are toggle buttons. Clicking the selected one again clears
   // it, which fits an optional field: unset means "not chosen".
   function toggleType(value: ProjectType) {
@@ -67,12 +90,20 @@ export function ProjectCreationFlow({ onComplete }: ProjectCreationFlowProps) {
   // That separation is what guarantees going back never clears anything.
   function goBack() {
     const index = STEPS.indexOf(currentStep);
-    if (index > 0) setCurrentStep(STEPS[index - 1]);
+    const previousStep = STEPS[index - 1];
+
+    if (previousStep) {
+      setCurrentStep(previousStep);
+    }
   }
 
   function goNext() {
     const index = STEPS.indexOf(currentStep);
-    if (index < STEPS.length - 1) setCurrentStep(STEPS[index + 1]);
+    const nextStep = STEPS[index + 1];
+
+    if (nextStep) {
+      setCurrentStep(nextStep);
+    }
   }
 
   function handleNameContinue() {
@@ -96,7 +127,39 @@ export function ProjectCreationFlow({ onComplete }: ProjectCreationFlowProps) {
   }
 
   return (
-    <main>
+    <main className="flex flex-col gap-8">
+      {/* Same spot on every step. Exit is separate from Back, which only
+          moves within the flow. Confirm only when there is something to lose. */}
+      <div className="flex justify-end">
+        {hasDraft ? (
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button type="button" variant="ghost">
+                Cancel
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Leave project creation?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Your project details haven't been saved yet. If you leave now, you'll lose what you've entered.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Keep editing</AlertDialogCancel>
+                <AlertDialogAction onClick={onCancel}>
+                  Discard and leave
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        ) : (
+          <Button type="button" variant="ghost" onClick={onCancel}>
+            Cancel
+          </Button>
+        )}
+      </div>
+
       {currentStep === "name" && (
         <section className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
@@ -248,7 +311,7 @@ export function ProjectCreationFlow({ onComplete }: ProjectCreationFlowProps) {
             {/* Never disabled: type is optional.
                 The label matches what is about to happen. */}
             <Button type="button" onClick={handleOpenStudio}>
-              {formData.type ? "Open your studio" : "Skip for now"}
+              Open your studio
             </Button>
           </div>
         </section>
