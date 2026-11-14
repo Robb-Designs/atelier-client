@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import { FolderPlus, ArrowUpRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 export function RecentProjects() {
+  const navigate = useNavigate();
   return (
     <Card>
       <CardContent className="flex flex-col items-center justify-center py-10 text-center">
@@ -18,7 +20,7 @@ export function RecentProjects() {
         </p>
 
         <div>
-          <Button>
+          <Button onClick={() => navigate("/app/projects/new")}>
             Create your first project
             <ArrowUpRight />
           </Button>
