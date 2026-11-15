@@ -1,7 +1,12 @@
 export type BackgroundTreatment =
     | "flat"
-    | "gradient"
     | "tonal";
+
+export type CoverSurface = {
+    background: string;
+    textPrimary: string;
+    textSecondary: string;
+};
 
 
 export type CoverPaletteId =
@@ -11,12 +16,10 @@ export type CoverPaletteId =
     | "dusty-blue"
     | "charcoal-sand";
 
-    
+
 export type CoverPalette = {
     id: CoverPaletteId;
-    base: string;
-    supporting: string;
+    base: CoverSurface;
+    supporting: CoverSurface;
     accent?: string;
-    textPrimary: string;
-    textSecondary: string;
 };
