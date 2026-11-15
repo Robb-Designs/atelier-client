@@ -2,7 +2,7 @@ import type { CoverPalette, CoverPaletteId } from "./cover.types";
 
 
 
-export const COVER_PALETTES: Record<CoverPaletteId, CoverPalette> = {
+export const COVER_PALETTES = {
     "olive-linen": {
         id: "olive-linen",
         base: {
@@ -73,4 +73,4 @@ export const COVER_PALETTES: Record<CoverPaletteId, CoverPalette> = {
   },
   accent: "#A5A18F",
 },
-};
+} satisfies Record<CoverPaletteId, CoverPalette>;

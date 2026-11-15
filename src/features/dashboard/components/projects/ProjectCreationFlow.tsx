@@ -13,8 +13,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-type ProjectType = "web-design" | "development" | "branding" | "other";
-
 // What the form holds while the user is typing.
 // Controlled inputs prefer "" over undefined, so empty strings live here.
 type ProjectFormData = {
@@ -134,10 +132,8 @@ export function ProjectCreationFlow({
       <div className="flex justify-end">
         {hasDraft ? (
           <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button type="button" variant="ghost">
-                Cancel
-              </Button>
+            <AlertDialogTrigger render={<Button type="button" variant="ghost" />}>
+              Cancel
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
