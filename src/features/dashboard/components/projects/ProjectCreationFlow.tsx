@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import type { ProjectType } from "@/features/projects/project.types";
 import {
   AlertDialog,
   AlertDialogAction,
