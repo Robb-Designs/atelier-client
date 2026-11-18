@@ -60,17 +60,17 @@ export const COVER_PALETTES = {
         accent: "#C58F78",
     },
     "charcoal-sand": {
-  id: "charcoal-sand",
-  base: {
-    background: "#343632",
-    textPrimary: "#FAF9F5",
-    textSecondary: "#D5D0C6",
-  },
-  supporting: {
-    background: "#E8E2D7",
-    textPrimary: "#343632",
-    textSecondary: "#68675E",
-  },
-  accent: "#A5A18F",
-},
+        id: "charcoal-sand",
+        base: {
+            background: "#343632",
+            textPrimary: "#FAF9F5",
+            textSecondary: "#D5D0C6",
+        },
+        supporting: {
+            background: "#E8E2D7",
+            textPrimary: "#343632",
+            textSecondary: "#68675E",
+        },
+        accent: "#A5A18F",
+    },
 } satisfies Record<CoverPaletteId, CoverPalette>;
