@@ -1,3 +1,7 @@
+import type { COVER_ELEMENTS } from "./cover.elements";
+
+
+
 export type BackgroundTreatment =
     | "flat"
     | "tonal";
@@ -24,18 +28,8 @@ export type CoverPalette = {
     accent?: string;
 };
 
-export type CoverElementFamily =
-  | "botanical"
-  | "organic"
-  | "geometric"
-  | "abstract";
 
-export type CoverElementDefinition = {
-  variants: readonly string[];
-  details?: readonly string[];
-};
-
-export type CoverElementCatalog = Record<
-  CoverElementFamily,
-  Record<string, CoverElementDefinition>
->;
+export type CoverElementId = {
+  [Family in keyof typeof COVER_ELEMENTS]:
+    keyof (typeof COVER_ELEMENTS)[Family];
+}[keyof typeof COVER_ELEMENTS];
