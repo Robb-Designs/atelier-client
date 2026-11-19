@@ -1,5 +1,5 @@
 import type { COVER_ELEMENTS } from "./cover.elements";
-
+import type { COVER_COMPOSITIONS } from "./cover.compositions";
 
 
 export type BackgroundTreatment =
@@ -34,6 +34,10 @@ export type CoverElementId = {
   [Family in keyof typeof COVER_ELEMENTS]:
   keyof (typeof COVER_ELEMENTS)[Family];
 }[keyof typeof COVER_ELEMENTS];
+
+
+export type CoverCompositionId =
+  keyof typeof COVER_COMPOSITIONS;
 
 
 type CoverElementDefinitionFor<
@@ -87,3 +91,18 @@ export type CoverElement =
     CoverElementInstance<ElementId>;
   }[CoverElementId];
 
+
+export type CoverCompositionElements = {
+  hero: CoverElement;
+  supporting?: CoverElement;
+  accent?: CoverElement;
+};
+
+export type CoverRecipe = {
+  version: 1;
+  seed: string;
+  palette: CoverPaletteId;
+  background: BackgroundTreatment;
+  composition: CoverCompositionId;
+  elements: CoverCompositionElements;
+};
