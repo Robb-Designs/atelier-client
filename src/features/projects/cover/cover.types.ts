@@ -1,5 +1,6 @@
 import type { COVER_ELEMENTS } from "./cover.elements";
 import type { COVER_COMPOSITIONS } from "./cover.compositions";
+import type { CoverPlacementZone, ResolvedCompositionSlot, } from "./cover.composition-types";
 
 
 export type BackgroundTreatment =
@@ -105,4 +106,13 @@ export type CoverRecipe = {
   background: BackgroundTreatment;
   composition: CoverCompositionId;
   elements: CoverCompositionElements;
+};
+
+
+export type ResolvedCoverComposition = {
+  composition: CoverCompositionId;
+  textZone: CoverPlacementZone;
+  hero: ResolvedCompositionSlot<CoverElement>;
+  supporting?: ResolvedCompositionSlot<CoverElement>;
+  accent?: ResolvedCompositionSlot<CoverElement>;
 };
