@@ -1,6 +1,7 @@
 
 import type { CoverElementFamily } from "./cover.element-types";
 
+
 export type CoverPlacementZone =
     | "top-left"
     | "top"
@@ -48,3 +49,10 @@ export type CoverCompositionCatalog = Record<
     string,
     CoverCompositionDefinition
 >;
+
+export type ResolvedCompositionSlot<Element> = {
+    element: Element;
+    placement: CoverPlacementZone;
+    size: CoverElementSize;
+    bleed: "allowed" | "forbidden";
+};
